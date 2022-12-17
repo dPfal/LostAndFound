@@ -20,7 +20,7 @@ public class MasterFunction {
 		this.req = req;
 	}
 	
-	public ActionBean backController(int jobkey/*0*/)
+	public ActionBean backController(int jobkey)
 	{
 		ActionBean action = null;
 		switch (jobkey) {
@@ -28,6 +28,7 @@ public class MasterFunction {
 			action=this.MovePage();
 			break;
 		case 0:
+			action=this.CalPercentage();
 			break;
 		case 1: 
 			action=this.CenterCreate();
@@ -44,7 +45,76 @@ public class MasterFunction {
 		case 5:
 			action=this.CallFoundList();
 			break;
+		case 6:
+			action=this.LFProcessingComplete();
+			break;
 		}
+		return action;
+	}
+	private ActionBean CalPercentage() {
+		MfDataAccessObject dao= null;
+		String page = "centerPerformance.jsp";
+		boolean isRedirect = false;
+		ActionBean action = new ActionBean();
+		MasterBean master = new MasterBean();
+		
+		dao = new MfDataAccessObject();
+		Connection connection = dao.openConnection();
+		
+		master=dao.calculateAllPerformance(connection,master);
+		master=dao.calculateCenterByPerformance(connection,master);
+		
+		dao.closeConnection(connection);
+		
+		this.req.setAttribute("CalPerformance",makeMessage(master));
+		
+		action.setPage(page);
+		action.setRedirect(isRedirect);
+		return action;
+	}
+	private ActionBean LFProcessingComplete() {
+		MfDataAccessObject dao= null;
+		String page = "centerManagement.jsp";
+		boolean isRedirect = false;
+		ActionBean action = new ActionBean();
+		CenterBean center= new CenterBean();
+		if(this.req.getParameter("Ctnum").split(":")[0].equals("L"))
+		{
+			ArrayList<LostArticleBean> list = new ArrayList<LostArticleBean>();
+			LostArticleBean lost = new LostArticleBean();
+			lost.setLaControlNumber(
+					this.req.getParameter("Ctnum").split(":")[1]);
+			list.add(lost);
+			center.setLAlist(list);
+		}
+		else
+		{
+			ArrayList<FoundArticleBean> list = new ArrayList<FoundArticleBean>();
+			FoundArticleBean found= new FoundArticleBean();
+			found.setFaControlNumber(
+					this.req.getParameter("Ctnum").split(":")[1]);
+			list.add(found);
+			center.setFAlist(list);
+		}
+		
+		dao = new MfDataAccessObject();
+		Connection connection = dao.openConnection();
+		dao.modifyTranStatus(connection, isRedirect);
+		
+		if(convertToBoolean(dao.completeProcessing(connection,center)))
+		{
+			page="centerManagement.jsp";
+			isRedirect = true;
+		}
+		else
+			
+		dao.setTransaction(true, connection);
+		dao.modifyTranStatus(connection, true);
+		dao.closeConnection(connection);
+		
+		action.setPage(page);
+		action.setRedirect(isRedirect);
+		
 		return action;
 	}
 	private ActionBean CallLostList() {
@@ -59,7 +129,6 @@ public class MasterFunction {
 		Connection connection = dao.openConnection();
 		ArrayList<LostArticleBean> Lalist = null;
 		Lalist=dao.getCenterLostList(connection,center);
-		
 		if(Lalist != null)
 		{
 			center.setLAlist(Lalist);
@@ -120,7 +189,7 @@ public class MasterFunction {
 		{
 			action.setPage("centerManagement.jsp");
 			action.setRedirect(false);
-			this.req.setAttribute("message",makeMessageCenterInformation(center));
+			this.req.setAttribute("message",makeMessage(center));
 			this.req.setAttribute("centerCode", center.getCenterCode());
 			
 		}
@@ -150,7 +219,7 @@ public class MasterFunction {
 		
 		if(obj.getFAlist() != null)
 		{
-			select.append("<select name=\"faList\" onchange=\"chageFaSelect()\" class=\"gtxt faList\">");
+			select.append("<select name=\"faList\" onchange=\"chageFaSelect(${center})\" class=\"gtxt faList\">");
 			
 			select.append("<option value=\"\">"+"등록날짜 : 습득날짜 "+"</option>");
 			for(FoundArticleBean f : obj.getFAlist())
@@ -163,7 +232,7 @@ public class MasterFunction {
 		}
 		else if(obj.getLAlist() != null)
 		{
-			select.append("<select name=\"laList\" onchange=\"chageLaSelect()\" class=\"gtxt laList\">");
+			select.append("<select name=\"laList\" onchange=\"chageLaSelect(${center})\" class=\"gtxt laList\">");
 			
 			select.append("<option value=\"\">"+"등록날짜 : 분실날짜 "+"</option>");
 			for(LostArticleBean l : obj.getLAlist())
@@ -180,9 +249,29 @@ public class MasterFunction {
 		}
 		return select.toString();
 	}
-	private String makeMessageCenterInformation(Object obj) {
+	private String makeMessage(MasterBean obj) {
 		StringBuffer message = new StringBuffer();
-		CenterBean center = (CenterBean)obj;
+		MasterBean master = obj;
+		
+		message.append("All Performance: \\n");
+		message.append("[LOST Processed Number] - " + master.getNprocessedLa() +"\\n");
+		message.append("[FOUND Processed Number] - " + master.getNprocessedFa()+"\\n");
+		message.append("[LOST Performance] - " + master.getPerformanceLa()+"\\n");
+		message.append("[FOUND Performance] - " + master.getPerformanceFa()+"\\n");
+		message.append("Center Performance: \\n");
+		for(CenterBean c : master.getCenterList())
+		{
+			message.append("[Center Name] - "+c.getCenterName()+"\\n");
+			message.append("[LOST Processed Number] - " + c.getNprocessedLa() +"\\n");
+			message.append("[FOUND Processed Number] - " + c.getNprocessedFa()+"\\n");
+			message.append("[LOST Performance] - " + c.getPerformanceLa()+"\\n");
+			message.append("[FOUND Performance] - " + c.getPerformanceFa()+"\\n\\n");
+		}
+		return message.toString();
+	}
+	private String makeMessage(CenterBean obj) {
+		StringBuffer message = new StringBuffer();
+		CenterBean center = obj;
 		
 		message.append("Center Infomation:");
 		message.append("[센터코드] - " + center.getCenterCode() +"\\n");

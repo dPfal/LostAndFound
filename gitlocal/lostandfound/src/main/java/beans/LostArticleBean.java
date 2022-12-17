@@ -3,6 +3,7 @@ package beans;
 import java.util.ArrayList;
 
 public class LostArticleBean {
+	private String LaMainCategoryCode;
 	private String LaSubCategoryCode;
 	private String LaControlNumber;
 	private String LaName;
@@ -14,7 +15,6 @@ public class LostArticleBean {
 	private String LaPostDate;
 	private String LaPostId;
 	private String LaColor;
-	private String LaMainCategoryCode;
 	private String LaDetail;
 
 	private ArrayList<ImgBean> ImgList;

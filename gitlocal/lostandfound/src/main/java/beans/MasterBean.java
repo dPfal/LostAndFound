@@ -7,7 +7,42 @@ public class MasterBean {
 	private String MasterPin;
 	private String MasterCode;
 	
+	private int nprocessedFa;
+	private int nprocessedLa;
+	private float PerformanceFa;
+	private float PerformanceLa;
 	ArrayList<CenterBean> centerList = new ArrayList<CenterBean>();
+
+	public int getNprocessedFa() {
+		return nprocessedFa;
+	}
+
+	public void setNprocessedFa(int nprocessedFa) {
+		this.nprocessedFa = nprocessedFa;
+	}
+
+	public int getNprocessedLa() {
+		return nprocessedLa;
+	}
+
+	public void setNprocessedLa(int nprocessedLa) {
+		this.nprocessedLa = nprocessedLa;
+	}
+	public float getPerformanceFa() {
+		return PerformanceFa;
+	}
+
+	public void setPerformanceFa(float performanceFa) {
+		PerformanceFa = performanceFa;
+	}
+
+	public float getPerformanceLa() {
+		return PerformanceLa;
+	}
+
+	public void setPerformanceLa(float performanceLa) {
+		PerformanceLa = performanceLa;
+	}
 
 	public String getMasterId() {
 		return MasterId;

@@ -14,7 +14,7 @@ import beans.ActionBean;
 import services.auth.Auth;
 import services.masterfunction.MasterFunction;
 
-@WebServlet({"/CenterCreate","/CenterCall","/CenterSelect", "/CallLostList", "/CallFoundList", 
+@WebServlet({"/CalPercentage","/CenterCreate","/CenterCall","/CenterSelect", "/CallLostList", "/CallFoundList", "/LFProcessComplete",
 
 	"/StoreDupCheck","/RegStore", "/RegEmp" , 
 	
@@ -33,14 +33,16 @@ public class FrontController extends HttpServlet {
 		ActionBean action=null;
 		int jobkey =
 				jobcode.equals("MovePage") ? -1 :
+					jobcode.equals("CalPercentage") ? 0 :
 					jobcode.equals("CenterCall") ? 2 :
 						jobcode.equals("CenterSelect") ? 3 :
 							jobcode.equals("CallLostList") ? 4 :
 								jobcode.equals("CallFoundList") ? 5 :
+									jobcode.equals("LFProcessComplete")? 6 :
 							
 				 -99;
 		switch (jobkey) {
-		case -1: case 2: case 3: case 4: case 5:{
+		case -1: case 0: case 2: case 3: case 4: case 5: case 6:{
 			action = new MasterFunction(req).backController(jobkey);
 			break;
 		}

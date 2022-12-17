@@ -55,7 +55,7 @@
 			<div class="storeStepBox l1">
 				${centerInfo }
 				<div class="nbox">
-					<span class="CenterBackButton" onClick="movePage('${param.previous}','${GROUPNAME}')">Back</span>
+					<span class="CenterBackButton" onClick="movePage('masterCtl.jsp','')">Back</span>
 					<span class="CenterListButton" onClick="centerCall()">Center call</span>
 					<span class="CenterSelect" onClick="centerSelect()">Center select</span>
 				</div>
@@ -66,9 +66,12 @@
 				${laList }
 				${faList }
 				<textarea cols="50" rows="10" name="txtarea" value=""></textarea>
+				<input type=hidden" name="Ctnum" value=""></hidden>
 				<div class="nbox">
 					<span class="CenterFoundListButton" onClick="callFoundList(${centerCode})">Call Found List</span>
 					<span class="CenterLostListButton" onClick="callLostList(${centerCode})">Call Lost List</span>
+					<span class="CompleteButton" onClick="complete(${centerCode})"
+							style="display: none">Process Complete</span>
 				</div>
 			</div>
 		</div>
@@ -87,14 +90,49 @@
 	</div>
 </body>
 <script>
-	function chageLaSelect(){  
-		const select = document.getElementsByName("LaList")[0];
-		select.selectedIndex
-		
+	function complete(centerCode){
+		const form = createForm("", "LFProcessComplete", "get");
+		form.appendChld(document.getElementsByName("Ctnum")[0]);
+		document.body.appendChild(form);
+		form.submit();
 	}
-	function chageFaSelect(){  
-		const select = document.getElementsByName("FaList")[0];
+	function chageLaSelect(center){  
+		const select = document.getElementsByName("LaList")[0];
+		const l =center.LAlist(select.selectedIndex);
+		const txtarea = document.getElementsByName("txtarea")[0];
+		if(txtarea.value != null)
+			txtarea.value="";
 		
+		const str= "[분류코드] : "+l.LaMainCategoryCode+l.LaSubCategoryCode+"\n"
+				+  "[관리번호] : "+l.LaControlNumber+"\n"
+				+  "[분실물품] : "+l.LaName+"\n"
+				+  "[분실장소] : "+l.LaPlace+"\n"
+				+  "[분실날짜] : "+l.LaDate+"\n"
+				+  "[센터코드] : "+l.LaCenterCode+"\n"
+				+  "[분실상태] : "+l.LaStatus+"\n"
+				+  "[분실지역] : "+l.LaLocation+"\n"
+				+  "[등록날짜] : "+l.LaPostDate+"\n"
+				+  "[등록 Id] : "+l.LaPostId+"\n"
+				+  "[물품색상] : "+l.LaColor+"\n"
+				+  "[상세내용] : "+l.LaDetail;
+		
+		txtarea.value=str;
+		document.getElementsByName("Ctnum")[0].value="L:"+l.LaControlNumber;
+		Document.getElementsByClassName("CompleteButton")[0].style.display = "block";
+	}
+	function chageFaSelect(center){  
+		const select = document.getElementsByName("FaList")[0];
+		const f =center.FAlist(select.selectedIndex);
+		const txtarea = document.getElementsByName("txtarea")[0];
+		if(txtarea.value != null)
+			txtarea.value="";
+		
+		const str= "[분류코드] : "+f.FaMainCategoryCode+f.FaSubCategoryCode+"\n"
+				+  "[관리번호] : "+f.FaControlNumber+"\n";
+		
+		txtarea.value=str;
+		document.getElementsByName("Ctnum")[0].value="F:"+f.FaControlNumber;
+		Document.getElementsByClassName("CompleteButton")[0].style.display = "block";
 	}
 	function callLostList(centerCode){
 		const form = createForm("", "CallLostList", "get");

@@ -12,13 +12,107 @@ import beans.MemberBean;
 
 
 public class MfDataAccessObject extends services.DataAccessObject {
+	final MasterBean calculateCenterByPerformance(Connection connection, MasterBean master)
+	{
+		String query="SELECT (SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA WHERE "
+				+ "LA_STATUS=C GROUP BY LA_CTCODE) AS CLNUM,"
+				+ "(SELECT COUNT(LA_CTNUMBER) AS A CT_NAME AS B FROM LFDBA.LA "
+				+ "INNER JOIN CT ON LA_CTCODE=CT_CODE GROUP BY LA_CTCODE,CT_NAME) AS ALNUM,"
+				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA WHERE "
+				+ "FA_STATUS=C GROUP BY FA_CTCODE) AS CFNUM,"
+				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA GROUP BY FA_CTCODE) AS AFNUM "
+				+ "FROM DUAL";
+		try {
+			this.ps = connection.prepareStatement(query);
+			
+			this.rs = this.ps.executeQuery();
+			if(this.rs.isBeforeFirst())
+			{
+				ArrayList<CenterBean> list = new ArrayList<CenterBean>();
+				CenterBean center =null;
+				while(this.rs.next())
+				{
+					center = new CenterBean();
+					center.setCenterName(this.rs.getNString("AFNUM.B"));
+					center.setNprocessedFa(this.rs.getInt("CFNUM"));
+					center.setNprocessedLa(this.rs.getInt("CLNUM"));
+					center.setPerformanceFa(
+							(center.getNprocessedFa()/this.rs.getInt("AFNUM.A"))*100
+							);
+					center.setPerformanceLa(
+							(center.getNprocessedLa()/this.rs.getInt("ALNUM"))*100
+							);
+					list.add(center);
+				}
+				master.setCenterList(list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return master;
+	}
+	final MasterBean calculateAllPerformance(Connection connection, MasterBean master)
+	{
+		String query="SELECT (SELECT COUNT(LA_CTNUMBER) AS CLNUM FROM LFDBA.LA WHERE LA_STATUS=C),"
+				+ "(SELECT COUNT(FA_CTNUMBER) AS CFNUM FROM LFDBA.FA WHERE FA_STATUS=C),"
+				+ "(SELECT COUNT(LA_CTNUMBER) AS ALNUM FROM LFDBA.LA),"
+				+ "(SELECT COUNT(FA_CTNUMBER) AS AFNUM FROM LFDBA.LA) FROM DUAL";
+		
+		try {
+			this.ps = connection.prepareStatement(query);
+			
+			this.rs = this.ps.executeQuery();
+			if(this.rs.isBeforeFirst())
+			{
+				while(this.rs.next())
+				{
+					master.setNprocessedLa(this.rs.getInt("CLNUM"));
+					master.setNprocessedFa(this.rs.getInt("CFNUM"));
+					master.setPerformanceLa(
+							(master.getNprocessedLa()/this.rs.getInt("ALNUM"))*100
+							);
+					master.setPerformanceFa(
+							(master.getNprocessedFa()/this.rs.getInt("AFNUM"))*100
+							);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return master;
+	}
+	final int completeProcessing(Connection connection, CenterBean center)
+	{
+		int result=0;
+		String dml=null;
+		String ctnum=null;
+		if(center.getFAlist() !=null)
+		{
+			dml="UPDATE LFDBA.FA SET FA_STATUS='C' WHERE FA_CTNUMBER=?";
+			ctnum=center.getFAlist().get(0).getFaControlNumber();
+		}
+		else if(center.getLAlist() != null) {
+			dml="UPDATE LFDBA.LA SET LA_STATUS='C' WHERE LA_CTNUMBER=?";
+			ctnum=center.getLAlist().get(0).getLaControlNumber();
+		}
+		
+		try {
+			this.ps = connection.prepareStatement(dml);
+			this.ps.setNString(1, ctnum);
+			result=this.ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	final ArrayList<FoundArticleBean> getCenterFoundList(Connection connection, CenterBean center)
 	{
 		ArrayList<FoundArticleBean> list = null;
 		String query="SELECT FA_MCCODE AS MAINCATEGORY,FA_SCCODE AS SUBCATEGORY,FA_CTNUMBER CONTROLLNUM,"
 				+ "FA_NAME AS FOUNDNAME,FA_PLACE FOUNDPLACE,FA_DATE FOUNDDATE,FA_STATUS FOUNDSTATUS,"
 				+ "FA_LOCATION AS FOUNDLOCATION,FA_MMID AS FOUNDID,FA_POSTDATE AS FOUNDPOSTDATE,"
-				+ "FA_COLOR AS FOUNDCOLOR,FA_CTCODE AS FOUNDCENTERCODE,FA_PERSON AS LOSTPERSON FROM LFDBA.FA WHERE FA_CTCODE=?";
+				+ "FA_COLOR AS FOUNDCOLOR,FA_CTCODE AS FOUNDCENTERCODE,FA_PERSON AS LOSTPERSON FROM LFDBA.FA "
+				+ "WHERE FA_CTCODE=? AND FA_STATUS='P'";
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
@@ -59,7 +153,8 @@ public class MfDataAccessObject extends services.DataAccessObject {
 		String query="SELECT LA_MCCODE AS MAINCATEGORY,LA_SCCODE AS SUBCATEGORY,LA_CTNUMBER CONTROLLNUM,"
 				+ "LA_NAME AS LOSTNAME,LA_PLACE LOSTPLACE,LA_DATE LOSTDATE,LA_STATUS LOSTSTATUS,"
 				+ "LA_LOCATION AS LOSTLOCATION,LA_DETAIL AS LOSTCONTENT,LA_MMID AS LOSTID,LA_POSTDATE AS LOSTPOSTDATE,"
-				+ "LA_COLOR AS LOSTCOLOR,LA_CTCODE AS LOSTCENTERCODE FROM LFDBA.LA WHERE LA_CTCODE=?";
+				+ "LA_COLOR AS LOSTCOLOR,LA_CTCODE AS LOSTCENTERCODE FROM LFDBA.LA WHERE "
+				+ "LA_CTCODE=? AND LA_STATUS='P'";
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
