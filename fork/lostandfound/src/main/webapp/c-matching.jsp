@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="resources/js/common.js" ></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -13,7 +14,7 @@ ${mathcingResult }
 <script type="text/javascript">
 	function matching(centerCode){
 		const form = createForm("", "LFMatching", "get");
-		form.appendChld(createInputBox("hidden", "centerCode", centerCode, ""));
+		form.appendChild(createInputBox("hidden", "centerCode", centerCode, ""));
 		document.body.appendChild(form);
 		form.submit();
 	}
