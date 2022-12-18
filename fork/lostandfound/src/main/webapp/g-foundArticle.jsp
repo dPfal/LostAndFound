@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lost and Found</title>
-<script src="resources/js/common.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/common.css"> -->
 <link rel=" stylesheet" href="resources/css/bootstrap.min.css">
 <link rel=" stylesheet" href="resources/css/bootstrap.css">
 
@@ -15,11 +12,11 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+<title>Insert title here</title>
 </head>
 <body>
-	<div id="wrap">
 
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="index.jsp">Lost & Found</a>
 			<button class="navbar-toggler" type="button"
@@ -58,37 +55,5 @@
 			</div>
 		</div>
 	</nav>
-
-		<div id="signup">
-			<!-- <img class="logo" src="resources/images/Logo.png">  -->
-			<input
-				type="button" class="btn login" value="Log in"
-				onClick="moveLoginPage()"></input> <input type="button"
-				class="btn sign" value="Sign up" onClick="moveSignPage()"></input>
-		</div>
-		<div id="messagebackground" style="display: none">
-			<div id="lightBox">
-				<div id="messageTitle">Message Title</div>
-				<div id="messageZone">
-					<div id="messageContent">Server Message</div>
-				</div>
-				<div id="messageAction">
-					<div class="button solo" onClick="disableMessage()">확인</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
-<script>
-	function moveLoginPage() {
-		const form = createForm("", "LoginMove", "get");
-		document.body.appendChild(form);
-		form.submit();
-	}
-	function moveSignPage() {
-		const form = createForm("", "Join", "get");
-		document.body.appendChild(form);
-		form.submit();
-	}
-</script>
 </html>
