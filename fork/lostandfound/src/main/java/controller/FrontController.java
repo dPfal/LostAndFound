@@ -17,7 +17,7 @@ import services.masterfunction.MasterFunction;
 
 @WebServlet({"/CalPercentage","/CenterCreate","/CenterCall","/CenterSelect", "/CallLostList", "/CallFoundList", "/LFProcessComplete",
 
-	"/LFMatching","/RegStore", "/RegEmp" , 
+	"/LFMatching","/RegLost", "/RegEmp" , 
 	
 	"/LoginMove","/Login" ,"/Logout",
 	
