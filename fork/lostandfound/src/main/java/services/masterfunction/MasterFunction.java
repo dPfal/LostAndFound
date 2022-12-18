@@ -53,7 +53,7 @@ public class MasterFunction {
 	}
 	private ActionBean CalPercentage() {
 		MfDataAccessObject dao= null;
-		String page = "centerPerformance.jsp";
+		String page = "m-centerPerformance.jsp";
 		boolean isRedirect = false;
 		ActionBean action = new ActionBean();
 		MasterBean master = new MasterBean();
@@ -74,7 +74,7 @@ public class MasterFunction {
 	}
 	private ActionBean LFProcessingComplete() {
 		MfDataAccessObject dao= null;
-		String page = "centerManagement.jsp";
+		String page = "m-centerManagement.jsp";
 		boolean isRedirect = false;
 		ActionBean action = new ActionBean();
 		CenterBean center= new CenterBean();
@@ -103,7 +103,7 @@ public class MasterFunction {
 		
 		if(convertToBoolean(dao.completeProcessing(connection,center)))
 		{
-			page="centerManagement.jsp";
+			page="m-centerManagement.jsp";
 			isRedirect = true;
 		}
 		else
@@ -119,7 +119,7 @@ public class MasterFunction {
 	}
 	private ActionBean CallLostList() {
 		MfDataAccessObject dao= null;
-		String page = "centerManagement.jsp";
+		String page = "m-centerManagement.jsp";
 		boolean isRedirect = false;
 		ActionBean action = new ActionBean();
 		CenterBean center= new CenterBean();
@@ -146,7 +146,7 @@ public class MasterFunction {
 	}
 	private ActionBean CallFoundList() {
 		MfDataAccessObject dao= null;
-		String page = "centerManagement.jsp";
+		String page = "m-centerManagement.jsp";
 		boolean isRedirect = false;
 		ActionBean action = new ActionBean();
 		CenterBean center= new CenterBean();
@@ -187,7 +187,7 @@ public class MasterFunction {
 		
 		if(center != null)
 		{
-			action.setPage("centerManagement.jsp");
+			action.setPage("m-centerManagement.jsp");
 			action.setRedirect(false);
 			this.req.setAttribute("message",makeMessage(center));
 			this.req.setAttribute("centerCode", center.getCenterCode());
@@ -206,7 +206,7 @@ public class MasterFunction {
 		master=dao.getCenterList(connection,master);
 		if(master != null)
 		{
-			action.setPage("centerManagement.jsp");
+			action.setPage("m-centerManagement.jsp");
 			this.req.setAttribute("centerName", makeHTMLSelectBox(master));
 			
 			action.setRedirect(false);

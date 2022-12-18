@@ -17,7 +17,8 @@ public class CenterBean {
 	private int nprocessedLa;
 	private float PerformanceFa;
 	private float PerformanceLa;
-
+	
+	private ArrayList<MemberBean> mList;
 
 	public int getNprocessedFa() {
 		return nprocessedFa;
@@ -111,6 +112,14 @@ public class CenterBean {
 
 	public void setCenterLocationcode(String centerLocationcode) {
 		this.centerLocationcode = centerLocationcode;
+	}
+
+	public ArrayList<MemberBean> getmList() {
+		return mList;
+	}
+
+	public void setmList(ArrayList<MemberBean> mList) {
+		this.mList = mList;
 	}
 
 }

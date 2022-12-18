@@ -49,9 +49,8 @@
 			</div>
 			
 			<div id="signup">	
-				<input type="button" class="btn centerManagement" value="centerManagement" onClick="movePage("centerManagement.jsp","")"></input>
-				<input type="button" class="btn centerPerformance" value="centerPerformance" onClick="movePage("centerPerformance.jsp","")"></input>
-				<input type="button" class="btn centerCreate" value="centerCreate" onClick="movePage("centerCreate.jsp","")"></input>	
+				<input type="button" class="btn Management" value="Management" onClick="movePage("c-management.jsp","")"></input>
+				<input type="button" class="btn Matching" value="Matching" onClick="movePage("c-matching.jsp","${ceterCode}")"></input>
 			</div>
 			
 			<div id="footer"></div>
