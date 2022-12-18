@@ -87,37 +87,41 @@ small {
 
 		<h5>분실 정보 입력</h5>
 
-		<fieldset>
+		<fieldset id="regLost">
 			<div class="form-group">
 
 				<label for="exampleSelect1" class="form-label mt-4"> * 관할 센터</label>
-				<select class="form-select" id="exampleSelect1">
+				<div style="display: flex; align-items: center;">
+					<select style="width: 20%; margin-right: 10px;" class="form-select"
+						id="center">
 
-					<option value="">선택</option>
-					<option value="101000">서울특별시</option>
-					<option value="109000">강원도</option>
-					<option value="102000">경기도</option>
-					<option value="110000">경상남도</option>
-					<option value="111000">경상북도</option>
-					<option value="103000">광주광역시</option>
-					<option value="104000">대구광역시</option>
-					<option value="105000">대전광역시</option>
-					<option value="106000">부산광역시</option>
-					<option value="107000">울산광역시</option>
-					<option value="108000">인천광역시</option>
-					<option value="112000">전라남도</option>
-					<option value="113000">전라북도</option>
-					<option value="115000">충청남도</option>
-					<option value="114000">충청북도</option>
-					<option value="116000">제주특별자치도</option>
-					<option value="117000">세종특별자치시</option>
-					<option value="118000">기타</option>
 
-				</select>
+						<option value="">선택</option>
+						<option value="C101000">서울</option>
+						<option value="C109000">강원</option>
+						<option value="C102000">경기</option>
+						<option value="C110000">경남</option>
+						<option value="C111000">경북</option>
+						<option value="C103000">광주</option>
+						<option value="C104000">대구</option>
+						<option value="C105000">대전</option>
+						<option value="C106000">부산</option>
+						<option value="C107000">울산</option>
+						<option value="C108000">인천</option>
+						<option value="C112000">전남</option>
+						<option value="C113000">전북</option>
+						<option value="C115000">충남</option>
+						<option value="C114000">충북</option>
+						<option value="C116000">제주</option>
+						<option value="C117000">세종</option>
+					</select> 분실물 센터
+
+				</div>
+
 			</div>
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4">* 분실 지역</label>
-				<select class="form-select" id="exampleSelect1">
+				<select class="form-select" id="location">
 					<option value="">선택</option>
 					<option value="101000">서울특별시</option>
 					<option value="109000">강원도</option>
@@ -142,7 +146,7 @@ small {
 
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 분실 장소
-					분류</label> <select class="form-select" id="exampleSelect1">
+					분류</label> <select class="form-select" id="place">
 
 					<option value="">선택</option>
 
@@ -167,12 +171,11 @@ small {
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">분실 장소
 					상세</label> <input type="text" class="form-control" placeholder=""
-					id="inputDefault">
+					id="placeDetail">
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 분실
-					날짜</label> <input type="text" class="form-control" placeholder=""
-					id="inputDefault">
+					날짜</label> <input type="text" class="form-control" placeholder="" id="date">
 			</div>
 			<br>
 			<hr>
@@ -180,9 +183,8 @@ small {
 			<h5>물품 정보 입력</h5>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 글 제목</label>
-				<input type="text" class="form-control" placeholder=""
-					id="inputDefault"> <small>분실물 목록에 표시되는 제목입니다. ex)
-					휴대폰분실</small>
+				<input type="text" class="form-control" placeholder="" id="title">
+				<small>분실물 목록에 표시되는 제목입니다. ex) 휴대폰분실</small>
 
 			</div>
 			<div>
@@ -216,7 +218,7 @@ small {
 			</div>
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 물품 색상</label>
-				<select class="form-select" id="exampleSelect1">
+				<select class="form-select" id="color">
 
 					<option value="">선택</option>
 					<option value="흰색">흰색</option>
@@ -238,22 +240,22 @@ small {
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 물품명</label>
 				<input type="text" class="form-control" placeholder=""
-					id="inputDefault">
+					id="articleName">
 			</div>
 
 
 
 			<div class="form-group">
 				<label for="exampleTextarea" class="form-label mt-4">* 상세 내용</label>
-				<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+				<textarea class="form-control" id="detail" rows="3"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="formFile" class="form-label mt-4">물품 사진 </label> <input
-					class="form-control" type="file" id="formFile">
+					class="form-control" type="file" id="img">
 			</div>
 			<div style="width: 100%; text-align: center; padding: 10%">
-				<button style="width: 30%" type="submit" class="btn btn-primary">분실물
-					신고하기</button>
+				<button style="width: 30%" type="submit" class="btn btn-primary"
+					onclick="regLost()">등록</button>
 			</div>
 		</fieldset>
 	</form>
@@ -261,6 +263,7 @@ small {
 
 </body>
 <script>
+
 	function categoryChange(e) {
 
 		const category_BA = [ "백팩", "크로스백", "캐리어", "파우치", "쇼퍼백", "에코백", "기타" ];
@@ -278,6 +281,7 @@ small {
 		let select
 		
 		select = eval("category_"+e.value);
+		<!-- eval : 지양해야 하는 함수 -->
 		
 		target.options.length = 0;
 		for (x in select) {
@@ -288,6 +292,18 @@ small {
 		}
 
 	}
+	
+		
+	function regLost(){
+		const form = createForm("","RegForm","post");
+		const ServerLayer = document.getElementById("regLost");
+		let lostData = [];
+		let submitResult = false;
+		
+		
+		lostData.push(document.getElementById("center")); 
+		}
+	
 </script>
 
 </html>

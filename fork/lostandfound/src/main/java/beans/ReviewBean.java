@@ -20,6 +20,7 @@ public class ReviewBean {
 	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
 	}
+	
 	private String reviewCode;
 	private String reviewContent;
 	private String reviewDate;
