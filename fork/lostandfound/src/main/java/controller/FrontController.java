@@ -12,11 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import beans.ActionBean;
 import services.auth.Auth;
+import services.center.Center;
 import services.masterfunction.MasterFunction;
 
 @WebServlet({"/CalPercentage","/CenterCreate","/CenterCall","/CenterSelect", "/CallLostList", "/CallFoundList", "/LFProcessComplete",
 
-	"/StoreDupCheck","/RegStore", "/RegEmp" , 
+	"/LFMatching","/RegStore", "/RegEmp" , 
 	
 	"/LoginMove","/Login" ,"/Logout",
 	
@@ -39,6 +40,7 @@ public class FrontController extends HttpServlet {
 							jobcode.equals("CallLostList") ? 4 :
 								jobcode.equals("CallFoundList") ? 5 :
 									jobcode.equals("LFProcessComplete")? 6 :
+					jobcode.equals("LFMatching") ? 11 :
 							
 				 -99;
 		switch (jobkey) {
@@ -46,8 +48,8 @@ public class FrontController extends HttpServlet {
 			action = new MasterFunction(req).backController(jobkey);
 			break;
 		}
-		case 100:
-			action = new Auth(req).backController(jobkey);
+		case 11:
+			action = new Center(req).backController(jobkey);
 			break;
 		}
 		if(action.isRedirect())
