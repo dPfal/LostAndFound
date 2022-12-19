@@ -25,6 +25,7 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 				+ "FROM LFDBA.LA INNER JOIN LFDBA.FA ON LA_CTCODE=FA_CTCODE "
 				+ "INNER JOIN LFDBA.MM ON LA_MMID=MM_ID "
 				+ "WHERE LA_CTCODE= ? AND LA_STATUS='P' AND FA_STATUS='P' ";
+		
 				query+=(pluscondition==-1)?"AND FA_PERSON=MM_NAME":
 				(pluscondition==0)?"AND ABS(LA_DATE-FA_DATE)<=2 ":
 				(pluscondition==1)?"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_SCCODE=FA_SCCODE ":(pluscondition==2)?
