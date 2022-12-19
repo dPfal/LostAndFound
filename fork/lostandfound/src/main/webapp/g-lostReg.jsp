@@ -15,6 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+	
 <style>
 #regform {
 	width: 70%;
@@ -36,7 +37,7 @@ small {
 }
 </style>
 </head>
-
+<script src="resources/js/common.js"></script>
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -204,9 +205,6 @@ small {
 						<option value="CR">카드</option>
 						<option value="CA">현금</option>
 						<option value="ET">기타</option>
-
-
-
 				</select>
 				</span> <label for="exampleSelect1" class="form-label mt-4">* 소분류</label> <select
 					class="form-select width50" id="SubCategories">
@@ -254,18 +252,21 @@ small {
 					class="form-control" type="file" id="img">
 			</div>
 			<div style="width: 100%; text-align: center; padding: 10%">
-				<button style="width: 30%" type="submit" class="btn btn-primary"
-					onclick="regLost()">등록</button>
+				<div style="width: 30%" class="btn btn-primary"
+					onClick="regLost()">등록</div>
 			</div>
+
+
 		</fieldset>
 	</form>
 
 
 </body>
+
 <script>
 
 	function categoryChange(e) {
-
+		alert('뭐야')
 		const category_BA = [ "백팩", "크로스백", "캐리어", "파우치", "쇼퍼백", "에코백", "기타" ];
 		const category_BO = [ "잡지", "참고서", "만화책", "소설책", "사전", "기타" ];
 		const category_IN = [ "건반악기", "관악기", "타악기", "현악기", "기타" ];
@@ -283,6 +284,15 @@ small {
 		select = eval("category_"+e.value);
 		<!-- eval : 지양해야 하는 함수 -->
 		
+		<!--
+		if(e=="BA"){
+			select = category_BA;
+		}
+		else if(e=="BO"){
+			select = category_BO;
+		}
+		-->
+		
 		target.options.length = 0;
 		for (x in select) {
 			let opt = document.createElement("option");
@@ -295,13 +305,29 @@ small {
 	
 		
 	function regLost(){
+		
 		const form = createForm("","RegForm","post");
-		const ServerLayer = document.getElementById("regLost");
+		
 		let lostData = [];
-		let submitResult = false;
+		lostData.push(document.getElementById("center"));
+		lostData.push(document.getElementById("location"));
+		lostData.push(document.getElementById("place"));
+		lostData.push(document.getElementById("placeDetail"));
+		lostData.push(document.getElementById("date"));
+		lostData.push(document.getElementById("title"));
+		lostData.push(document.getElementById("MainCategories"));
+		lostData.push(document.getElementById("SubCategories"));
+		lostData.push(document.getElementById("color"));
+		lostData.push(document.getElementById("articleName"));
+		lostData.push(document.getElementById("detail"));
 		
+		alert(lostData);
+		for (let i = 0; i < lostData.length; i++) {
+			form.appendChild(lostData[i]);
+		}
 		
-		lostData.push(document.getElementById("center")); 
+		document.body.appendChild(form);
+		form.submit();
 		}
 	
 </script>

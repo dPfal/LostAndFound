@@ -78,6 +78,7 @@ public class MasterFunction {
 		boolean isRedirect = false;
 		ActionBean action = new ActionBean();
 		CenterBean center= new CenterBean();
+		
 		if(this.req.getParameter("Ctnum").split(":")[0].equals("L"))
 		{
 			ArrayList<LostArticleBean> list = new ArrayList<LostArticleBean>();
