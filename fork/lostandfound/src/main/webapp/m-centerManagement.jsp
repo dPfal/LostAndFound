@@ -64,8 +64,8 @@
 		</div>
 		<div class="messagebackground b2" style="display:block">
 			<div class="storeStepBox l2">
-				${laList }
-				${faList }
+				${laList}
+				${faList}
 				<textarea cols="50" rows="10" name="txtarea" value=""></textarea>
 				<input type=hidden" name="Ctnum" value=""></hidden>
 				<div class="nbox">
