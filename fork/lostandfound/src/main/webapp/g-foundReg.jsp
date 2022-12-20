@@ -3,18 +3,18 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="UTF-8"">
+<meta charset="UTF-8""="">
 <title>습득물 신고</title>
-<link rel=" stylesheet" href="resources/css/bootstrap.min.css">
-<link rel=" stylesheet" href="resources/css/bootstrap.css">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap.css">
 
 
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+
 <style>
 #regform {
 	width: 70%;
@@ -28,20 +28,21 @@
 }
 
 .width50 {
-	width: 25%;
+	width: 45%;
 }
 
 small {
 	font-size: 12px;
 }
 </style>
+<script src="resources/js/common.js"></script>
 </head>
 
-<body>
+<body class="vsc-initialized">
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.jsp">Lost & Found</a>
+			<a class="navbar-brand" href="index.jsp">Lost &amp; Found</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarColor01"
 				aria-controls="navbarColor01" aria-expanded="false"
@@ -87,13 +88,12 @@ small {
 
 		<h5>습득 정보 입력</h5>
 
-		<fieldset id="regLost">
+		<fieldset id="regFound">
 			<div class="form-group">
-
 				<label for="exampleSelect1" class="form-label mt-4"> * 관할 센터</label>
 				<div style="display: flex; align-items: center;">
 					<select style="width: 20%; margin-right: 10px;" class="form-select"
-						id="center">
+						name="center">
 
 
 						<option value="">선택</option>
@@ -121,7 +121,7 @@ small {
 			</div>
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4">* 습득 지역</label>
-				<select class="form-select" id="location">
+				<select class="form-select" name="location">
 					<option value="">선택</option>
 					<option value="101000">서울특별시</option>
 					<option value="109000">강원도</option>
@@ -146,51 +146,52 @@ small {
 
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 습득 장소
-					분류</label> <select class="form-select" id="place">
+					분류</label> <select class="form-select" name="place">
 
 					<option value="">선택</option>
+					<option value="PL1001">버스</option>
+					<option value="PL1002">택시</option>
+					<option value="PL1003">지하철</option>
+					<option value="PL1004">공항</option>
+					<option value="PL1005">기차</option>
+					<option value="PL1006">회사</option>
+					<option value="PL1007">학교</option>
+					<option value="PL1008">공공기관</option>
+					<option value="PL1009">놀이공원</option>
+					<option value="PL1010">유원지</option>
+					<option value="PL1011">우체통</option>
+					<option value="PL1012">백화점</option>
+					<option value="PL1013">상점</option>
+					<option value="PL1014">음식점</option>
+					<option value="PL1015">기타</option>
+					<option value="PL1016">노상</option>
+					<option value="PL1017">모름</option>
 
-					<option value="">우체통</option>
-					<option value="">노상</option>
-					<option value="">기차</option>
-					<option value="">지하철</option>
-					<option value="">매장</option>
-					<option value="">택시</option>
-					<option value="">음식점</option>
-					<option value="">공공기관</option>
-					<option value="">버스</option>
-					<option value="">공항</option>
-					<option value="">상점</option>
-					<option value="">영화관</option>
-					<option value="">놀이공원</option>
-					<option value="">학교</option>
-					<option value="">회사</option>
-					<option value="">기타</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">습득 장소
 					상세</label> <input type="text" class="form-control" placeholder=""
-					id="placeDetail">
+					name="placeDetail">
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 습득
-					날짜</label> <input type="text" class="form-control" placeholder="" id="date">
+					날짜</label> <input type="text" class="form-control" placeholder=""
+					name="date">
 			</div>
 			<br>
 			<hr>
 
-			<h5>물품 정보 입력</h5>
+			<h5>습득물 정보 입력</h5>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 글 제목</label>
-				<input type="text" class="form-control" placeholder="" id="title">
+				<input type="text" class="form-control" placeholder="" name="title">
 				<small>습득물 목록에 표시되는 제목입니다. ex) 휴대폰습득</small>
 
 			</div>
 			<div>
-				<span class="form-group" style="float: left; margin-right: 5%;">
-					<label for="exampleSelect1" class="form-label mt-4">* 대분류</label> <select
-					class="form-select" id="MainCategories"
+				<label for="exampleSelect1" class="form-label mt-4 width50">*
+					대분류<select class="form-select " name="MainCategories"
 					onchange="categoryChange(this)">
 
 						<option value="">대분류 선택</option>
@@ -204,21 +205,31 @@ small {
 						<option value="CR">카드</option>
 						<option value="CA">현금</option>
 						<option value="ET">기타</option>
-
-
-
 				</select>
-				</span> <label for="exampleSelect1" class="form-label mt-4">* 소분류</label> <select
-					class="form-select width50" id="SubCategories">
+				</label> <label for="exampleSelect1" class="form-label mt-4 width50"
+					style="float: right">* 소분류<select class="form-select"
+					name="SubCategories">
 
-					<option value="">소분류 선택</option>
-
-				</select>
+				</select></label>
 
 			</div>
-			<div class="form-group">
+			<div>
+
+
+				<label class="col-form-label mt-4 width50 " for="inputDefault">*
+					물품명<span class="form-group"> <input type="text"
+						class="form-control " placeholder="" name="articleName">
+				</span>
+				</label><label class="col-form-label mt-4 width50 " for="inputDefault"
+					style="float: right">분실자 명 <span class="form-group">
+
+						<input type="text" class="form-control " placeholder=""
+						name="loserName">
+				</span></label>
+			</div>
+			<div class="form-group width50">
 				<label for="exampleSelect1" class="form-label mt-4"> * 물품 색상</label>
-				<select class="form-select" id="color">
+				<select class="form-select" name="color">
 
 					<option value="">선택</option>
 					<option value="흰색">흰색</option>
@@ -237,35 +248,34 @@ small {
 
 				</select>
 			</div>
-			<div class="form-group">
-				<label class="col-form-label mt-4" for="inputDefault">* 물품명</label>
-				<input type="text" class="form-control" placeholder=""
-					id="articleName">
-			</div>
 
 
 
 			<div class="form-group">
 				<label for="exampleTextarea" class="form-label mt-4">* 상세 내용</label>
-				<textarea class="form-control" id="detail" rows="3"></textarea>
+				<textarea class="form-control" name="detail" rows="3"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="formFile" class="form-label mt-4">물품 사진 </label> <input
-					class="form-control" type="file" id="img">
+					class="form-control" type="file" name="img">
 			</div>
 			<div style="width: 100%; text-align: center; padding: 10%">
-				<button style="width: 30%" type="submit" class="btn btn-primary"
-					onclick="regLost()">등록</button>
+				<div style="width: 30%" class="btn btn-primary" onclick="regFound()">등록</div>
 			</div>
+
+
 		</fieldset>
 	</form>
 
 
-</body>
-<script>
 
+
+	<script>
+	function alert(message){
+		alert(message);
+	}
 	function categoryChange(e) {
-
+	
 		const category_BA = [ "백팩", "크로스백", "캐리어", "파우치", "쇼퍼백", "에코백", "기타" ];
 		const category_BO = [ "잡지", "참고서", "만화책", "소설책", "사전", "기타" ];
 		const category_IN = [ "건반악기", "관악기", "타악기", "현악기", "기타" ];
@@ -277,33 +287,78 @@ small {
 		const category_CA = [ "현금", "수표", "외화", "기타" ];
 		const category_ET = [ "기타" ];
 
-		let target = document.getElementById("SubCategories");
+		let target = document.getElementsByName("SubCategories")[0];
+		//<select class="form-select" name="SubCategories">
+		// <option value="00">백팩</option>
 		let select
 		
 		select = eval("category_"+e.value);
 		<!-- eval : 지양해야 하는 함수 -->
 		
+		<!--
+		if(e=="BA"){
+			select = category_BA;
+		}
+		else if(e=="BO"){
+			select = category_BO;
+		}
+		-->
 		target.options.length = 0;
 		for (x in select) {
 			let opt = document.createElement("option");
-			opt.value = select[x];
+			// <option></option>
+			opt.value = '0'+x;//select[x];
+			// <option value="00"></option>
 			opt.innerHTML = select[x];
+			// <option value="00">백팩</option>
 			target.appendChild(opt);
+			
 		}
 
 	}
 	
 		
-	function regLost(){
-		const form = createForm("","RegForm","post");
-		const ServerLayer = document.getElementById("regLost");
-		let lostData = [];
-		let submitResult = false;
+	function regFound(){
 		
+		const form = createForm("","RegFound","post");
+		//<form action="RegLost" method="post">
 		
-		lostData.push(document.getElementById("center")); 
+		//</form>
+		
+		let data = [];
+		
+		data.push(createInputBox("hidden","center",document.getElementsByName("center")[0].options[document.getElementsByName("center")[0].selectedIndex].value,""));
+		//<input type="hidden" name="center" value="C113000"></input> 
+		data.push(createInputBox("hidden","location",document.getElementsByName("location")[0].options[document.getElementsByName("location")[0].selectedIndex].value,""));
+		data.push(createInputBox("hidden","place",document.getElementsByName("place")[0].options[document.getElementsByName("place")[0].selectedIndex].value,""));
+		data.push(document.getElementsByName("placeDetail")[0]);
+		data.push(document.getElementsByName("date")[0]);
+		data.push(document.getElementsByName("title")[0]);
+		data.push(document.getElementsByName("loserName")[0]);
+		data.push(createInputBox("hidden","MainCategories",document.getElementsByName("MainCategories")[0].options[document.getElementsByName("MainCategories")[0].selectedIndex].value,""));
+		data.push(createInputBox("hidden","SubCategories",document.getElementsByName("SubCategories")[0].options[document.getElementsByName("SubCategories")[0].selectedIndex].value,""));
+		data.push(createInputBox("hidden","color",document.getElementsByName("color")[0].options[document.getElementsByName("color")[0].selectedIndex].value,""));
+		data.push(document.getElementsByName("articleName")[0]);
+		data.push(document.getElementsByName("detail")[0]);
+		 
+		
+		for (let i = 0; i < data.length; i++) {
+			console.log(i+data[i]);
+			form.appendChild(data[i]);
+			//<form action="RegLost" method="post">
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//</form>
+			
 		}
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
 	
 </script>
 
+</body>
 </html>

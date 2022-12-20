@@ -64,11 +64,18 @@ function disableMessage()
 	document.getElementById("messagebackground").style.display="none";
 }
 function createInputBox(type, name, value, placeholder){
+	
+	//createInputBox("hidden","center",document.getElementsByName("center")[0].options[document.getElementsByName("center")[0].selectedIndex].value,"")
 	const input = document.createElement("input");
+	//<input></input>
 	input.setAttribute("type", type);
+	//<input type="hidden"></input>
 	input.setAttribute("name", name);
+	//<input type="hidden" name="center"></input>
 	if(value != "") input.setAttribute("value", value);
+	//<input type="hidden" name="center" value="C113000"></input> 
 	if(placeholder != "") input.setAttribute("placeholde", placeholder);
+	console.log('create'+input);
 	return input;
 }
 function movePage(targetPage, data){
