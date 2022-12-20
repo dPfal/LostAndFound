@@ -12,11 +12,12 @@ public class LostArticleBean {
 	private String LaCenterCode;
 	private String LaStatus;
 	private String LaLocation;
-	private String LaPostDate;
+	private String LaPostDate; 
 	private String LaPostId;
 	private String LaColor;
 	private String LaDetail;
-
+	private String LaTitle;
+	private String LaPlaceDetail;
 	private ArrayList<ImgBean> ImgList;
 	private ArrayList<CommentBean> Commentlist;
 	private ReviewBean reviewBean;
@@ -148,6 +149,25 @@ public class LostArticleBean {
 	public void setLaDetail(String laDetail) {
 		LaDetail = laDetail;
 	}
+
+	public String getLaTitle() {
+		return LaTitle;
+	}
+
+	public void setLaTitle(String laTitle) {
+		LaTitle = laTitle;
+	}
+
+	public String getLaPlaceDetail() {
+		return LaPlaceDetail;
+	}
+
+	public void setLaPlaceDetail(String laPlaceDetail) {
+		LaPlaceDetail = laPlaceDetail;
+	}
+
+
+	
 
 
 

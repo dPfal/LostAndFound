@@ -54,5 +54,6 @@
 			</div>
 		</div>
 	</nav>
+	${message}
 </body>
 </html>

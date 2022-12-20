@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
-	
+
 <style>
 #regform {
 	width: 70%;
@@ -94,7 +94,7 @@ small {
 				<label for="exampleSelect1" class="form-label mt-4"> * 관할 센터</label>
 				<div style="display: flex; align-items: center;">
 					<select style="width: 20%; margin-right: 10px;" class="form-select"
-						id="center">
+						name="center">
 
 
 						<option value="">선택</option>
@@ -122,7 +122,7 @@ small {
 			</div>
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4">* 분실 지역</label>
-				<select class="form-select" id="location">
+				<select class="form-select" name="location">
 					<option value="">선택</option>
 					<option value="101000">서울특별시</option>
 					<option value="109000">강원도</option>
@@ -147,36 +147,38 @@ small {
 
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 분실 장소
-					분류</label> <select class="form-select" id="place">
+					분류</label> <select class="form-select" name="place">
 
 					<option value="">선택</option>
+					<option value="PL1001">버스</option>
+					<option value="PL1002">택시</option>
+					<option value="PL1003">지하철</option>
+					<option value="PL1004">공항</option>
+					<option value="PL1005">기차</option>
+					<option value="PL1006">회사</option>
+					<option value="PL1007">학교</option>
+					<option value="PL1008">공공기관</option>
+					<option value="PL1009">놀이공원</option>
+					<option value="PL1010">유원지</option>
+					<option value="PL1011">우체통</option>
+					<option value="PL1012">백화점</option>
+					<option value="PL1013">상점</option>
+					<option value="PL1014">음식점</option>
+					<option value="PL1015">기타</option>
+					<option value="PL1016">노상</option>
+					<option value="PL1017">모름</option>
 
-					<option value="">우체통</option>
-					<option value="">노상</option>
-					<option value="">기차</option>
-					<option value="">지하철</option>
-					<option value="">매장</option>
-					<option value="">택시</option>
-					<option value="">음식점</option>
-					<option value="">공공기관</option>
-					<option value="">버스</option>
-					<option value="">공항</option>
-					<option value="">상점</option>
-					<option value="">영화관</option>
-					<option value="">놀이공원</option>
-					<option value="">학교</option>
-					<option value="">회사</option>
-					<option value="">기타</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">분실 장소
 					상세</label> <input type="text" class="form-control" placeholder=""
-					id="placeDetail">
+					name="placeDetail">
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 분실
-					날짜</label> <input type="text" class="form-control" placeholder="" id="date">
+					날짜</label> <input type="text" class="form-control" placeholder=""
+					name="date">
 			</div>
 			<br>
 			<hr>
@@ -184,14 +186,14 @@ small {
 			<h5>물품 정보 입력</h5>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 글 제목</label>
-				<input type="text" class="form-control" placeholder="" id="title">
+				<input type="text" class="form-control" placeholder="" name="title">
 				<small>분실물 목록에 표시되는 제목입니다. ex) 휴대폰분실</small>
 
 			</div>
 			<div>
 				<span class="form-group" style="float: left; margin-right: 5%;">
 					<label for="exampleSelect1" class="form-label mt-4">* 대분류</label> <select
-					class="form-select" id="MainCategories"
+					class="form-select" name="MainCategories"
 					onchange="categoryChange(this)">
 
 						<option value="">대분류 선택</option>
@@ -207,7 +209,7 @@ small {
 						<option value="ET">기타</option>
 				</select>
 				</span> <label for="exampleSelect1" class="form-label mt-4">* 소분류</label> <select
-					class="form-select width50" id="SubCategories">
+					class="form-select width50" name="SubCategories">
 
 					<option value="">소분류 선택</option>
 
@@ -216,7 +218,7 @@ small {
 			</div>
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 물품 색상</label>
-				<select class="form-select" id="color">
+				<select class="form-select" name="color">
 
 					<option value="">선택</option>
 					<option value="흰색">흰색</option>
@@ -238,22 +240,21 @@ small {
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 물품명</label>
 				<input type="text" class="form-control" placeholder=""
-					id="articleName">
+					name="articleName">
 			</div>
 
 
 
 			<div class="form-group">
 				<label for="exampleTextarea" class="form-label mt-4">* 상세 내용</label>
-				<textarea class="form-control" id="detail" rows="3"></textarea>
+				<textarea class="form-control" name="detail" rows="3"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="formFile" class="form-label mt-4">물품 사진 </label> <input
-					class="form-control" type="file" id="img">
+					class="form-control" type="file" name="img">
 			</div>
 			<div style="width: 100%; text-align: center; padding: 10%">
-				<div style="width: 30%" class="btn btn-primary"
-					onClick="regLost()">등록</div>
+				<div style="width: 30%" class="btn btn-primary" onClick="regLost()">등록</div>
 			</div>
 
 
@@ -266,7 +267,7 @@ small {
 <script>
 
 	function categoryChange(e) {
-		alert('뭐야')
+	
 		const category_BA = [ "백팩", "크로스백", "캐리어", "파우치", "쇼퍼백", "에코백", "기타" ];
 		const category_BO = [ "잡지", "참고서", "만화책", "소설책", "사전", "기타" ];
 		const category_IN = [ "건반악기", "관악기", "타악기", "현악기", "기타" ];
@@ -278,7 +279,7 @@ small {
 		const category_CA = [ "현금", "수표", "외화", "기타" ];
 		const category_ET = [ "기타" ];
 
-		let target = document.getElementById("SubCategories");
+		let target = document.getElementsByName("SubCategories")[0];
 		let select
 		
 		select = eval("category_"+e.value);
@@ -296,9 +297,10 @@ small {
 		target.options.length = 0;
 		for (x in select) {
 			let opt = document.createElement("option");
-			opt.value = select[x];
+			opt.value = '0'+x;//select[x];
 			opt.innerHTML = select[x];
 			target.appendChild(opt);
+			
 		}
 
 	}
@@ -306,22 +308,23 @@ small {
 		
 	function regLost(){
 		
-		const form = createForm("","RegForm","post");
+		const form = createForm("","RegLost","post");
 		
 		let lostData = [];
-		lostData.push(document.getElementById("center"));
-		lostData.push(document.getElementById("location"));
-		lostData.push(document.getElementById("place"));
-		lostData.push(document.getElementById("placeDetail"));
-		lostData.push(document.getElementById("date"));
-		lostData.push(document.getElementById("title"));
-		lostData.push(document.getElementById("MainCategories"));
-		lostData.push(document.getElementById("SubCategories"));
-		lostData.push(document.getElementById("color"));
-		lostData.push(document.getElementById("articleName"));
-		lostData.push(document.getElementById("detail"));
 		
-		alert(lostData);
+		lostData.push(createInputBox("hidden","center",document.getElementsByName("center")[0].options[document.getElementsByName("center")[0].selectedIndex].value,""));
+		lostData.push(createInputBox("hidden","location",document.getElementsByName("location")[0].options[document.getElementsByName("location")[0].selectedIndex].value,""));
+		lostData.push(createInputBox("hidden","place",document.getElementsByName("place")[0].options[document.getElementsByName("place")[0].selectedIndex].value,""));
+		lostData.push(document.getElementsByName("placeDetail")[0]);
+		lostData.push(document.getElementsByName("date")[0]);
+		lostData.push(document.getElementsByName("title")[0]);
+		lostData.push(createInputBox("hidden","MainCategories",document.getElementsByName("MainCategories")[0].options[document.getElementsByName("MainCategories")[0].selectedIndex].value,""));
+		lostData.push(createInputBox("hidden","SubCategories",document.getElementsByName("SubCategories")[0].options[document.getElementsByName("SubCategories")[0].selectedIndex].value,""));
+		lostData.push(createInputBox("hidden","color",document.getElementsByName("color")[0].options[document.getElementsByName("color")[0].selectedIndex].value,""));
+		lostData.push(document.getElementsByName("articleName")[0]);
+		lostData.push(document.getElementsByName("detail")[0]);
+		 
+		
 		for (let i = 0; i < lostData.length; i++) {
 			form.appendChild(lostData[i]);
 		}

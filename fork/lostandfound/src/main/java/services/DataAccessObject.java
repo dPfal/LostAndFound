@@ -18,8 +18,9 @@ public class DataAccessObject {
 	protected Connection openConnect() {
 		Connection connection = null;
 		try {
+			System.out.println("DB connect!");
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.146:1521:xe", "LFDEV", "1234");
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.42:1521:xe", "LFDEV3", "1234");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error : OracleDriver None");
 			e.printStackTrace();
@@ -35,7 +36,7 @@ public class DataAccessObject {
 		Connection connection = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.146:1521:xe", userName, password);
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.42:1521:xe", userName, password);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error : OracleDriver None");
 			e.printStackTrace();
