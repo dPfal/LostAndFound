@@ -19,7 +19,7 @@ import services.masterfunction.MasterFunction;
 @WebServlet({ "/CalPercentage", "/CenterCreate", "/CenterCall", "/CenterSelect", "/CallLostList", "/CallFoundList",
 		"/LFProcessComplete",
 
-		"/LFMatching", "/RegLost", "/RegEmp",
+		"/LFMatching", "/RegLost", "/RegFound",
 
 		"/LoginMove", "/Login", "/Logout",
 
@@ -74,7 +74,7 @@ public class FrontController extends HttpServlet {
 		String jobcode = req.getRequestURI().substring(req.getContextPath().length() + 1);
 		ActionBean action = null;
 
-		int jobkey = jobcode.equals("CenterCreate") ? 1 : jobcode.equals("RegLost") ? 7 : -99;
+		int jobkey = jobcode.equals("CenterCreate") ? 1 : jobcode.equals("RegLost") ? 7 : jobcode.equals("RegFound")? 8 : -99;
 
 		switch (jobkey) {
 
@@ -82,8 +82,8 @@ public class FrontController extends HttpServlet {
 			action = new MasterFunction(req).backController(jobkey);
 			break;
 		}
-		case 7: {
-			System.out.println("enter case 7");
+		case 7: case 8: {
+			System.out.println("enter reg");
 			action = new GeneralFunction(req).backController(jobkey);
 			System.out.println(action.getPage());
 			System.out.println(action.isRedirect());

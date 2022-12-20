@@ -16,6 +16,9 @@ public class FoundArticleBean {
 	private String FaPostDate;
 	private String FaPostId;
 	private String FaColor;
+	private String FaTitle;
+	private String FaDetail;
+	private String FaPlaceDetail;
 	private ArrayList<ImgBean> ImgList;
 	private ArrayList<CommentBean> commentlist;
 	
@@ -108,5 +111,23 @@ public class FoundArticleBean {
 	}
 	public void setFaMainCategoryCode(String faMainCategoryCode) {
 		FaMainCategoryCode = faMainCategoryCode;
+	}
+	public String getFaTitle() {
+		return FaTitle;
+	}
+	public void setFaTitle(String faTitle) {
+		FaTitle = faTitle;
+	}
+	public String getFaDetail() {
+		return FaDetail;
+	}
+	public void setFaDetail(String faDetail) {
+		FaDetail = faDetail;
+	}
+	public String getFaPlaceDetail() {
+		return FaPlaceDetail;
+	}
+	public void setFaPlaceDetail(String faPlaceDetail) {
+		FaPlaceDetail = faPlaceDetail;
 	}
 }

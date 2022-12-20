@@ -3,12 +3,11 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="UTF-8"">
+<meta charset="UTF-8""="">
 <title>분실물 신고</title>
-<link rel=" stylesheet" href="resources/css/bootstrap.min.css">
-<link rel=" stylesheet" href="resources/css/bootstrap.css">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap.css">
 
 
 <script
@@ -29,20 +28,21 @@
 }
 
 .width50 {
-	width: 25%;
+	width: 40%;
 }
 
 small {
 	font-size: 12px;
 }
 </style>
-</head>
 <script src="resources/js/common.js"></script>
-<body>
+</head>
+
+<body class="vsc-initialized">
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.jsp">Lost & Found</a>
+			<a class="navbar-brand" href="index.jsp">Lost &amp; Found</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarColor01"
 				aria-controls="navbarColor01" aria-expanded="false"
@@ -90,7 +90,6 @@ small {
 
 		<fieldset id="regLost">
 			<div class="form-group">
-
 				<label for="exampleSelect1" class="form-label mt-4"> * 관할 센터</label>
 				<div style="display: flex; align-items: center;">
 					<select style="width: 20%; margin-right: 10px;" class="form-select"
@@ -172,8 +171,8 @@ small {
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">분실 장소
-					상세</label> <input type="text" class="form-control" placeholder=""
-					name="placeDetail">
+					상세</label> 
+					<input type="text" class="form-control" placeholder=""name="placeDetail">
 			</div>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 분실
@@ -183,7 +182,7 @@ small {
 			<br>
 			<hr>
 
-			<h5>물품 정보 입력</h5>
+			<h5>분실물 정보 입력</h5>
 			<div class="form-group">
 				<label class="col-form-label mt-4" for="inputDefault">* 글 제목</label>
 				<input type="text" class="form-control" placeholder="" name="title">
@@ -191,9 +190,8 @@ small {
 
 			</div>
 			<div>
-				<span class="form-group" style="float: left; margin-right: 5%;">
-					<label for="exampleSelect1" class="form-label mt-4">* 대분류</label> <select
-					class="form-select" name="MainCategories"
+				<label for="exampleSelect1" class="form-label mt-4 width50">*
+					대분류<select class="form-select " name="MainCategories"
 					onchange="categoryChange(this)">
 
 						<option value="">대분류 선택</option>
@@ -208,14 +206,19 @@ small {
 						<option value="CA">현금</option>
 						<option value="ET">기타</option>
 				</select>
-				</span> <label for="exampleSelect1" class="form-label mt-4">* 소분류</label> <select
-					class="form-select width50" name="SubCategories">
-
-					<option value="">소분류 선택</option>
-
-				</select>
+				</label> <label for="exampleSelect1" class="form-label mt-4 width50"
+					style="float: right">* 소분류<select class="form-select"
+					name="SubCategories">
+						
+				</select></label>
 
 			</div>
+			<div class="form-group">
+				<label class="col-form-label mt-4" for="inputDefault">* 물품명</label>
+				<input type="text" class="form-control" placeholder=""
+					name="articleName">
+			</div>
+			
 			<div class="form-group">
 				<label for="exampleSelect1" class="form-label mt-4"> * 물품 색상</label>
 				<select class="form-select" name="color">
@@ -237,12 +240,7 @@ small {
 
 				</select>
 			</div>
-			<div class="form-group">
-				<label class="col-form-label mt-4" for="inputDefault">* 물품명</label>
-				<input type="text" class="form-control" placeholder=""
-					name="articleName">
-			</div>
-
+			
 
 
 			<div class="form-group">
@@ -254,7 +252,7 @@ small {
 					class="form-control" type="file" name="img">
 			</div>
 			<div style="width: 100%; text-align: center; padding: 10%">
-				<div style="width: 30%" class="btn btn-primary" onClick="regLost()">등록</div>
+				<div style="width: 30%" class="btn btn-primary" onclick="regLost()">등록</div>
 			</div>
 
 
@@ -262,9 +260,9 @@ small {
 	</form>
 
 
-</body>
 
-<script>
+
+	<script>
 
 	function categoryChange(e) {
 	
@@ -280,6 +278,8 @@ small {
 		const category_ET = [ "기타" ];
 
 		let target = document.getElementsByName("SubCategories")[0];
+		//<select class="form-select" name="SubCategories">
+		// <option value="00">백팩</option>
 		let select
 		
 		select = eval("category_"+e.value);
@@ -293,12 +293,14 @@ small {
 			select = category_BO;
 		}
 		-->
-		
 		target.options.length = 0;
 		for (x in select) {
 			let opt = document.createElement("option");
+			// <option></option>
 			opt.value = '0'+x;//select[x];
+			// <option value="00"></option>
 			opt.innerHTML = select[x];
+			// <option value="00">백팩</option>
 			target.appendChild(opt);
 			
 		}
@@ -309,10 +311,14 @@ small {
 	function regLost(){
 		
 		const form = createForm("","RegLost","post");
+		//<form action="RegLost" method="post">
+		
+		//</form>
 		
 		let lostData = [];
 		
 		lostData.push(createInputBox("hidden","center",document.getElementsByName("center")[0].options[document.getElementsByName("center")[0].selectedIndex].value,""));
+		//<input type="hidden" name="center" value="C113000"></input> 
 		lostData.push(createInputBox("hidden","location",document.getElementsByName("location")[0].options[document.getElementsByName("location")[0].selectedIndex].value,""));
 		lostData.push(createInputBox("hidden","place",document.getElementsByName("place")[0].options[document.getElementsByName("place")[0].selectedIndex].value,""));
 		lostData.push(document.getElementsByName("placeDetail")[0]);
@@ -327,12 +333,20 @@ small {
 		
 		for (let i = 0; i < lostData.length; i++) {
 			form.appendChild(lostData[i]);
+			//<form action="RegLost" method="post">
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//	<input type="hidden" name="center" value="C113000"></input> 
+			//</form>
+			
 		}
 		
 		document.body.appendChild(form);
 		form.submit();
-		}
+	}
 	
 </script>
 
+</body>
 </html>
