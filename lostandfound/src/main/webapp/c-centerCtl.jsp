@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Lost and Found</title>
 
-<script src="resources/js/common.js"></script>
+
+<script src="resources/js/com.js"></script>
 
 <link rel=" stylesheet" href="resources/css/bootstrap.min.css">
 <link rel=" stylesheet" href="resources/css/bootstrap.css">
@@ -109,6 +110,6 @@
 
 </body>
 <script>
-	
+
 </script>
 </html>

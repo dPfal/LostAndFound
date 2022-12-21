@@ -14,14 +14,15 @@ import beans.MemberBean;
 public class MfDataAccessObject extends services.DataAccessObject {
 	final MasterBean calculateCenterByPerformance(Connection connection, MasterBean master)
 	{
-		String query="SELECT (SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA WHERE "
-				+ "LA_STATUS=C GROUP BY LA_CTCODE) AS CLNUM,"
-				+ "(SELECT COUNT(LA_CTNUMBER) AS A CT_NAME AS B FROM LFDBA.LA "
-				+ "INNER JOIN CT ON LA_CTCODE=CT_CODE GROUP BY LA_CTCODE,CT_NAME) AS ALNUM,"
+
+		String query="SELECT CT_NAME AS CTNAME, (SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA WHERE "
+				+ "LA_STATUS='R' GROUP BY LA_CTCODE) AS CLNUM,"
+				+ "(SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA ) AS ALNUM,"
 				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA WHERE "
-				+ "FA_STATUS=C GROUP BY FA_CTCODE) AS CFNUM,"
+				+ "FA_STATUS='S' GROUP BY FA_CTCODE) AS CFNUM,"
 				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA GROUP BY FA_CTCODE) AS AFNUM "
-				+ "FROM DUAL";
+				+ "FROM LFDBA.CT";
+
 		try {
 			this.ps = connection.prepareStatement(query);
 			
@@ -33,7 +34,8 @@ public class MfDataAccessObject extends services.DataAccessObject {
 				while(this.rs.next())
 				{
 					center = new CenterBean();
-					center.setCenterName(this.rs.getNString("AFNUM.B"));
+
+					center.setCenterName(this.rs.getNString("CTNAME"));
 					center.setNprocessedFa(this.rs.getInt("CFNUM"));
 					center.setNprocessedLa(this.rs.getInt("CLNUM"));
 					center.setPerformanceFa(
@@ -53,10 +55,11 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	}
 	final MasterBean calculateAllPerformance(Connection connection, MasterBean master)
 	{
-		String query="SELECT (SELECT COUNT(LA_CTNUMBER) AS CLNUM FROM LFDBA.LA WHERE LA_STATUS=C),"
-				+ "(SELECT COUNT(FA_CTNUMBER) AS CFNUM FROM LFDBA.FA WHERE FA_STATUS=C),"
-				+ "(SELECT COUNT(LA_CTNUMBER) AS ALNUM FROM LFDBA.LA),"
-				+ "(SELECT COUNT(FA_CTNUMBER) AS AFNUM FROM LFDBA.LA) FROM DUAL";
+
+		String query="SELECT (SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA WHERE LA_STATUS='R') AS CLNUM,"
+				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA WHERE FA_STATUS='S') AS CFNUM,"
+				+ "(SELECT COUNT(LA_CTNUMBER) FROM LFDBA.LA) AS ALNUM,"
+				+ "(SELECT COUNT(FA_CTNUMBER) FROM LFDBA.FA) AS AFNUM FROM DUAL";
 		
 		try {
 			this.ps = connection.prepareStatement(query);
@@ -108,11 +111,12 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	final ArrayList<FoundArticleBean> getCenterFoundList(Connection connection, CenterBean center)
 	{
 		ArrayList<FoundArticleBean> list = null;
-		String query="SELECT FA_MCCODE AS MAINCATEGORY,FA_SCCODE AS SUBCATEGORY,FA_CTNUMBER CONTROLLNUM,"
+
+		String query="SELECT FA_MCCODE AS MAINCATEGORY,FA_UCCODE AS SUBCATEGORY,FA_CTNUMBER CONTROLLNUM,"
 				+ "FA_NAME AS FOUNDNAME,FA_PLACE FOUNDPLACE,FA_DATE FOUNDDATE,FA_STATUS FOUNDSTATUS,"
 				+ "FA_LOCATION AS FOUNDLOCATION,FA_MMID AS FOUNDID,FA_POSTDATE AS FOUNDPOSTDATE,"
 				+ "FA_COLOR AS FOUNDCOLOR,FA_CTCODE AS FOUNDCENTERCODE,FA_PERSON AS LOSTPERSON FROM LFDBA.FA "
-				+ "WHERE FA_CTCODE=? AND FA_STATUS='P'";
+				+ "WHERE FA_CTCODE=? AND FA_STATUS='S'";
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
@@ -150,11 +154,12 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	final ArrayList<LostArticleBean> getCenterLostList(Connection connection, CenterBean center)
 	{
 		ArrayList<LostArticleBean> list = null;
-		String query="SELECT LA_MCCODE AS MAINCATEGORY,LA_SCCODE AS SUBCATEGORY,LA_CTNUMBER CONTROLLNUM,"
+
+		String query="SELECT LA_MCCODE AS MAINCATEGORY,LA_UCCODE AS SUBCATEGORY,LA_CTNUMBER CONTROLLNUM,"
 				+ "LA_NAME AS LOSTNAME,LA_PLACE LOSTPLACE,LA_DATE LOSTDATE,LA_STATUS LOSTSTATUS,"
 				+ "LA_LOCATION AS LOSTLOCATION,LA_DETAIL AS LOSTCONTENT,LA_MMID AS LOSTID,LA_POSTDATE AS LOSTPOSTDATE,"
 				+ "LA_COLOR AS LOSTCOLOR,LA_CTCODE AS LOSTCENTERCODE FROM LFDBA.LA WHERE "
-				+ "LA_CTCODE=? AND LA_STATUS='P'";
+				+ "LA_CTCODE=? AND LA_STATUS='R'";
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
@@ -191,7 +196,8 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	}
 	final CenterBean getCenterInfo(Connection connection, CenterBean center)
 	{
-		String query="SELECT CT_CODE AS CTCODE, CT_NAME AS CTNAME, CT_PIN AS CTPIN"
+
+		String query="SELECT CT_CODE AS CTCODE, CT_NAME AS CTNAME, CT_PIN AS CTPIN,"
 				+ "CT_PHONE AS CTPHONE, CT_ADDRESS AS CTADDR, CT_LOCODE AS CTLOCODE "
 				+"FROM LFDBA.CT WHERE CT_CODE=? AND CT_NAME=?";
 		try {
@@ -221,7 +227,8 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	final MasterBean getCenterList(Connection connection, MasterBean master)
 	{
 		String query="SELECT CT_CODE AS CTCODE, CT_NAME AS CTNAME "
-				+ "FROM LFDBA.SL ";
+
+				+ "FROM LFDBA.CT ";
 		try {
 			this.ps = connection.prepareStatement(query);
 			
@@ -248,7 +255,9 @@ public class MfDataAccessObject extends services.DataAccessObject {
 	{
 		int result=0;
 		String dml = "INSERT INTO LFDBA.CT(CT_PIN,CT_CODE,CT_NAME"
-				+",CT_PHONE,CT_ADDRESS,CT_LOCODE";
+
+				+",CT_PHONE,CT_ADDRESS,CT_LOCODE) VALUES(?,?,?,?,?,?)";
+
 		
 		try {
 			this.ps = connection.prepareStatement(dml);

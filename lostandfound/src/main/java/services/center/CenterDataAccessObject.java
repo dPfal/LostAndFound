@@ -13,23 +13,25 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 
 	final CenterBean lfMatching(Connection connection, CenterBean center, int pluscondition)
 	{
-		String query="SELECT LA_MCCODE AS LMAIN, LA_SCCODE AS LSUB,"
+
+		CenterBean centerbean=null;
+		String query="SELECT LA_MCCODE AS LMAIN, LA_UCCODE AS LSUB,"
 				+ "LA_CTNUMBER AS LCTNUM,LA_NAME AS LNAME,LA_PLACE AS LPLACE,"
 				+ "LA_DATE AS LDATE,LA_STATUS AS LSTATUS,LA_LOCATION AS LLOCCATION,"
 				+ "LA_MMID AS LID,LA_POSTDATE AS LPOSTDATE,LA_COLOR AS LCOLOR,"
-				+ "FA_MCCODE AS FMAIN, FA_SCCODE AS FSUB,"
+				+ "FA_MCCODE AS FMAIN, FA_UCCODE AS FSUB,"
 				+ "FA_CTNUMBER AS FCTNUM,FA_NAME AS FNAME,FA_PLACE AS FPLACE,"
 				+ "FA_DATE AS FDATE,FA_STATUS AS FSTATUS,FA_LOCATION AS FLOCCATION,"
-				+ "FA_MMID AS FID,FA_POSTDATE AS FPOSTDATE,FA_COLOR AS FCOLOR,FA_PERSON AS FPERSON"
+				+ "FA_MMID AS FID,FA_POSTDATE AS FPOSTDATE,FA_COLOR AS FCOLOR,FA_PERSON AS FPERSON,"
 				+ "MM_NAME AS LMMNAME, MM_PHONE AS LMMPHONE "
 				+ "FROM LFDBA.LA INNER JOIN LFDBA.FA ON LA_CTCODE=FA_CTCODE "
 				+ "INNER JOIN LFDBA.MM ON LA_MMID=MM_ID "
-				+ "WHERE LA_CTCODE= ? AND LA_STATUS='P' AND FA_STATUS='P' ";
-		
+				+ "WHERE LA_CTCODE= ? AND LA_STATUS='R' AND FA_STATUS='S' ";
 				query+=(pluscondition==-1)?"AND FA_PERSON=MM_NAME":
 				(pluscondition==0)?"AND ABS(LA_DATE-FA_DATE)<=2 ":
-				(pluscondition==1)?"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_SCCODE=FA_SCCODE ":(pluscondition==2)?
-			"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_SCCODE=FA_SCCODE AND LA_COLOR=FA_COLOR AND LA_PLACE=FA_PLACE":"";
+				(pluscondition==1)?"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_UCCODE=FA_UCCODE ":(pluscondition==2)?
+			"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_UCCODE=FA_UCCODE AND LA_COLOR=FA_COLOR AND LA_PLACE=FA_PLACE":"";
+
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
@@ -42,6 +44,9 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 				ArrayList<MemberBean> mlist = new ArrayList<MemberBean>();
 				ArrayList<LostArticleBean> llist = new ArrayList<LostArticleBean>();
 				ArrayList<FoundArticleBean> flist = new ArrayList<FoundArticleBean>();
+
+				
+
 				while(this.rs.next())
 				{
 					member = new MemberBean();
@@ -79,15 +84,15 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 					lost=null;
 					found=null;
 				}
-				center.setmList(mlist);
-				center.setLAlist(llist);
-				center.setFAlist(flist);
+				centerbean = new CenterBean();
+				centerbean.setmList(mlist);
+				centerbean.setLAlist(llist);
+				centerbean.setFAlist(flist);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return center;
+		return centerbean;
 	}
 	final Connection openConnection() {
 		return this.openConnect();

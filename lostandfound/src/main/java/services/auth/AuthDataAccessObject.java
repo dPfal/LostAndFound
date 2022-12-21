@@ -1,6 +1,7 @@
 package services.auth;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 
 import beans.MemberBean;
@@ -8,6 +9,11 @@ import beans.MemberBean;
 
 
 public class AuthDataAccessObject extends services.DataAccessObject{
+
+
+
+
+
 
 	final Connection openConnection() {
 		return this.openConnect();
@@ -24,6 +30,7 @@ public class AuthDataAccessObject extends services.DataAccessObject{
 	final void setTransaction(boolean tran, Connection connect) {
 		this.setTransactionEnd(tran, connect);
 	}
+
 	
 	final int PasswordCheck(Connection connect,MemberBean member) {
 		int result =0;
@@ -81,5 +88,7 @@ public class AuthDataAccessObject extends services.DataAccessObject{
 //
 //	}
 	
+
+=======
 
 }

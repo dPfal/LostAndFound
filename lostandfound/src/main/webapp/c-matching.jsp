@@ -3,11 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="resources/js/common.js" ></script>
+
+<script src="resources/js/com.js" ></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body onLoad="matching(${ceterCode})">
+<body onLoad="matching('C108000')">
+
+<!--  "matching(${ceterCode})">
+onClick="movePage('c-matching.jsp','C108000')"></input> -->
 ${mathcingResult }
 	
 </body>

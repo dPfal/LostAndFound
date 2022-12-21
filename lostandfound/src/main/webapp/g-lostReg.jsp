@@ -333,13 +333,7 @@ small {
 		
 		for (let i = 0; i < lostData.length; i++) {
 			form.appendChild(lostData[i]);
-			//<form action="RegLost" method="post">
-			//	<input type="hidden" name="center" value="C113000"></input> 
-			//	<input type="hidden" name="center" value="C113000"></input> 
-			//	<input type="hidden" name="center" value="C113000"></input> 
-			//	<input type="hidden" name="center" value="C113000"></input> 
-			//</form>
-			
+
 		}
 		
 		document.body.appendChild(form);

@@ -74,7 +74,8 @@
 				class="btn back" value="Back"
 				onClick="movePage('${param.previous}','${GROUPNAME}')"></input>
 		</div>
-		>
+
+		
 		<!-- MessageBox -->
 		<div id="messagebackground" style="display: none">
 			<div id="messageBox">
