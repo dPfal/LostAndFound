@@ -13,6 +13,7 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 
 	final CenterBean lfMatching(Connection connection, CenterBean center, int pluscondition)
 	{
+
 		CenterBean centerbean=null;
 		String query="SELECT LA_MCCODE AS LMAIN, LA_UCCODE AS LSUB,"
 				+ "LA_CTNUMBER AS LCTNUM,LA_NAME AS LNAME,LA_PLACE AS LPLACE,"
@@ -30,6 +31,7 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 				(pluscondition==0)?"AND ABS(LA_DATE-FA_DATE)<=2 ":
 				(pluscondition==1)?"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_UCCODE=FA_UCCODE ":(pluscondition==2)?
 			"AND ABS(LA_DATE-FA_DATE)<=2 AND LA_MCCODE=FA_MCCODE AND LA_UCCODE=FA_UCCODE AND LA_COLOR=FA_COLOR AND LA_PLACE=FA_PLACE":"";
+
 		try {
 			this.ps = connection.prepareStatement(query);
 			this.ps.setNString(1, center.getCenterCode());
@@ -42,7 +44,9 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 				ArrayList<MemberBean> mlist = new ArrayList<MemberBean>();
 				ArrayList<LostArticleBean> llist = new ArrayList<LostArticleBean>();
 				ArrayList<FoundArticleBean> flist = new ArrayList<FoundArticleBean>();
+
 				
+
 				while(this.rs.next())
 				{
 					member = new MemberBean();
@@ -88,7 +92,6 @@ public class CenterDataAccessObject extends services.DataAccessObject {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return centerbean;
 	}
 	final Connection openConnection() {

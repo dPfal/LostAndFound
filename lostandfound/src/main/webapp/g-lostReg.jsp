@@ -333,6 +333,7 @@ small {
 		
 		for (let i = 0; i < lostData.length; i++) {
 			form.appendChild(lostData[i]);
+
 		}
 		
 		document.body.appendChild(form);

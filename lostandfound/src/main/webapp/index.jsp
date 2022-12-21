@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,6 +11,9 @@
 <!-- <link rel="stylesheet" href="resources/css/common.css"> -->
 <link rel=" stylesheet" href="resources/css/bootstrap.min.css">
 <link rel=" stylesheet" href="resources/css/bootstrap.css">
+
+
+
 
 
 <script
@@ -73,11 +78,13 @@
 					<div id="messageContent">Server Message</div>
 				</div>
 				<div id="messageAction">
+
 					<div class="button solo" onClick="disableMessage()">확인</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 <script>
 	function moveLoginPage() {

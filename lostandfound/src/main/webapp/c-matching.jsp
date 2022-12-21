@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="resources/js/com.js" ></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>

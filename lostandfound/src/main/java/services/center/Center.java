@@ -50,6 +50,7 @@ public class Center {
 		
 		ArrayList<CenterBean> clist = new ArrayList<CenterBean>();
 		CenterBean center= new CenterBean();
+
 		center.setCenterCode(this.req.getParameter("centerCode")); 
 		
 		dao= new CenterDataAccessObject();
@@ -74,21 +75,25 @@ public class Center {
 		int count=0;
 		for(CenterBean c : list)
 		{
+
 			if(count==0) message.append("가능성 높음 : <br>");
 			else if(count==1) message.append("가능성 낮음 : <br>");
 			else if(count==2) message.append("가능성 중간 : <br>");
 			else if(count==3) message.append("가능성 높음 : <br>");
+
 			for(int i=0; i<c.getLAlist().size();i++)
 			{
 				LostArticleBean l = c.getLAlist().get(i);
 				FoundArticleBean f = c.getFAlist().get(i);
 				MemberBean m = c.getmList().get(i);
+
 				String foundlostperson = (f.getFaPerson()==null)?"분실자명 없음":f.getFaPerson();
 				message.append(i+1+".[lost]"+l.getLaColor()+l.getLaControlNumber()+l.getLaDate()+l.getLaLocation()+l.getLaMainCategoryCode()+l.getLaName()+l.getLaPlace()+l.getLaPostDate()+l.getLaPostId()+l.getLaStatus()+l.getLaSubCategoryCode()
 							+"<br>"+"[found]"+f.getFaColor()+f.getFaControlNumber()+f.getFaDate()+f.getFaLocation()+f.getFaMainCategoryCode()+f.getFaName()+f.getFaPlace()+f.getFaPostDate()+f.getFaPostId()+f.getFaStatus()+f.getFaSubCategoryCode()
 							+foundlostperson
 							+"<br>"+"[lostperson]"+m.getMM_PHONE()+m.getMM_NAME());
 				message.append("<br>");
+
 			}
 			count++;
 		}
