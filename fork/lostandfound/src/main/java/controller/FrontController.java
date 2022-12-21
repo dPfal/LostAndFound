@@ -74,7 +74,7 @@ public class FrontController extends HttpServlet {
 		String jobcode = req.getRequestURI().substring(req.getContextPath().length() + 1);
 		ActionBean action = null;
 
-		int jobkey = jobcode.equals("CenterCreate") ? 1 : jobcode.equals("RegLost") ? 7 : jobcode.equals("RegFound")? 8 : -99;
+		int jobkey = jobcode.equals("CenterCreate") ? 1 : jobcode.equals("RegLost") ? 7 : jobcode.equals("RegFound")? 8 : jobcode.equals("Login")? 101 : -99;
 
 		switch (jobkey) {
 
@@ -89,7 +89,12 @@ public class FrontController extends HttpServlet {
 			System.out.println(action.isRedirect());
 			break;
 		}
-		case 101:
+		case 101:{
+			System.out.println("enter case 101 (auth)");
+			action = new Auth(req).backController(jobkey);
+			break;
+		}
+
 		case 102: {
 			action = new Auth(req).backController(jobkey);
 			break;

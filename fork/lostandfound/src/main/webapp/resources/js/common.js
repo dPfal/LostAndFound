@@ -1,19 +1,10 @@
 
-let publicIp;
-/* public ip 수집 */
-function getPublicIp(){
-	//﻿https://api.ipify.org <-ajax 적용. 
-	return "124.54.23.39";
-}
+
+
 
 function lengthCheck(obj)
 {
-	const length = [
-		["groupName",2,20],["groupCeo",2,5],["groupPin",6,6],
-				["storeCode",10,10],["storeName",10,10],["storeZip",10,10],
-				["storeAddr",10,10],["storeDaddr",10,10],["storePhone",10,10],
-				["empCode",3,3],["empPin",6,6]
-			];
+	const length = [['MM_ID','2','10'],['MM_PW','2','20']];
 	
 	let result = null;
 	for(let i=0; i<length.length ; i++)
