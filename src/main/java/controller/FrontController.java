@@ -29,13 +29,14 @@ import services.registration.Registration;
 		"/MovePage" })
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public FrontController() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("get 방식으로 보냈어요.");
+		System.out.println("committest");
 		req.setCharacterEncoding("UTF-8");
 		String jobcode = req.getRequestURI().substring(req.getContextPath().length() + 1);
 		ActionBean action = null;
